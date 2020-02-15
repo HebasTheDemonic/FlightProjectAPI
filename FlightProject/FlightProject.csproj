@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAOs\ConnectionStrings.cs" />
     <Compile Include="DAOs\MSSQL\AdministatorDAO.cs" />
     <Compile Include="DAOs\MSSQL\AirlineDAO.cs" />
     <Compile Include="DAOs\MSSQL\CountryDAO.cs" />

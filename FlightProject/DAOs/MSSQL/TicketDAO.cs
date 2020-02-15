@@ -12,9 +12,11 @@ namespace FlightProject.DAOs
 {
     internal class TicketDAO : ITicketDAO
     {
+        const string CONNECTIONSTRING = ConnectionStrings.MSSQLConnectionString;
+
         public void Add(Ticket t)
         {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MSSQLConnectionString"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(CONNECTIONSTRING))
             {
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
@@ -43,7 +45,7 @@ namespace FlightProject.DAOs
         public int DoesTicketExistByID(Ticket ticket)
         {
             int result = 0;
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MSSQLConnectionString"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(CONNECTIONSTRING))
             {
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
@@ -74,7 +76,7 @@ namespace FlightProject.DAOs
         public int DoesTicketExistByCustomerAndFlight(Ticket ticket)
         {
             int result = 0;
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MSSQLConnectionString"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(CONNECTIONSTRING))
             {
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
@@ -111,7 +113,7 @@ namespace FlightProject.DAOs
         public Ticket Get(int id)
         {
             Ticket ticket = new Ticket();
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MSSQLConnectionString"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(CONNECTIONSTRING))
             {
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
@@ -142,7 +144,7 @@ namespace FlightProject.DAOs
         {
             List<Ticket> tickets = new List<Ticket>();
 
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MSSQLConnectionString"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(CONNECTIONSTRING))
             {
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
@@ -167,7 +169,7 @@ namespace FlightProject.DAOs
         {
             List<Ticket> tickets = new List<Ticket>();
 
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MSSQLConnectionString"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(CONNECTIONSTRING))
             {
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
@@ -199,7 +201,7 @@ namespace FlightProject.DAOs
         {
             List<Ticket> tickets = new List<Ticket>();
 
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MSSQLConnectionString"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(CONNECTIONSTRING))
             {
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
@@ -231,7 +233,7 @@ namespace FlightProject.DAOs
 
         public Ticket GetTicketID(Ticket ticket)
         {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MSSQLConnectionString"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(CONNECTIONSTRING))
             {
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
@@ -266,7 +268,7 @@ namespace FlightProject.DAOs
 
         public void Remove(Ticket t)
         {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MSSQLConnectionString"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(CONNECTIONSTRING))
             {
                 SqlCommand sqlCommand = new SqlCommand
                 {
@@ -292,7 +294,7 @@ namespace FlightProject.DAOs
 
         public void Update(Ticket t)
         {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MSSQLConnectionString"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(CONNECTIONSTRING))
             {
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;

@@ -12,9 +12,11 @@ namespace FlightProject.DAOs
 {
     internal class AirlineDAO : IAirlineDAO
     {
+        const string CONNECTIONSTRING = ConnectionStrings.MSSQLConnectionString;
+
         public void Add(AirlineCompany t)
         {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MSSQLConnectionString"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(CONNECTIONSTRING))
             {
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
@@ -55,7 +57,7 @@ namespace FlightProject.DAOs
         public int DoesAirlineCompanyExist(AirlineCompany airlineCompany)
         {
             int result = 0;
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MSSQLConnectionString"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(CONNECTIONSTRING))
             {
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
@@ -87,7 +89,7 @@ namespace FlightProject.DAOs
         {
             AirlineCompany airlineCompany = new AirlineCompany();
 
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MSSQLConnectionString"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(CONNECTIONSTRING))
             {
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
@@ -120,7 +122,7 @@ namespace FlightProject.DAOs
         {
             AirlineCompany airlineCompany = new AirlineCompany();
 
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MSSQLConnectionString"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(CONNECTIONSTRING))
             {
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
@@ -153,7 +155,7 @@ namespace FlightProject.DAOs
         {
             List<AirlineCompany> airlineCompanies = new List<AirlineCompany>();
 
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MSSQLConnectionString"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(CONNECTIONSTRING))
             {
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
@@ -180,7 +182,7 @@ namespace FlightProject.DAOs
         {
             List<AirlineCompany> airlineCompanies = new List<AirlineCompany>();
 
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MSSQLConnectionString"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(CONNECTIONSTRING))
             {
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
@@ -212,7 +214,7 @@ namespace FlightProject.DAOs
 
         public void Remove(AirlineCompany t)
         {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MSSQLConnectionString"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(CONNECTIONSTRING))
             {
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
@@ -234,7 +236,7 @@ namespace FlightProject.DAOs
 
         public void Update(AirlineCompany t)
         {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MSSQLConnectionString"].ConnectionString))
+            using (SqlConnection connection = new SqlConnection(CONNECTIONSTRING))
             {
                 SqlCommand sqlCommand = new SqlCommand();
                 sqlCommand.Connection = connection;
