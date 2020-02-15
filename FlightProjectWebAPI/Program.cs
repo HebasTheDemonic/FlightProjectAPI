@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace FlightProjectWebAPI
+namespace FlightProject_WebAPI
 {
     public class Program
     {
