@@ -8,7 +8,7 @@ namespace FlightProject.POCOs
 {
     public class User : IUser
     {
-        public string UserName { get; }
+        public string Username { get; }
         public string Password { get; }
 
         public User()
@@ -18,7 +18,7 @@ namespace FlightProject.POCOs
 
         public User(string username, string password)
         {
-            UserName = username ?? throw new ArgumentNullException(nameof(username));
+            Username = username ?? throw new ArgumentNullException(nameof(username));
             Password = password ?? throw new ArgumentNullException(nameof(password));
         }
     }

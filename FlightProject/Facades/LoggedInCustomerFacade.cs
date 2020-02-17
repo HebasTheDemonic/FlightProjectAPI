@@ -81,7 +81,7 @@ namespace FlightProject.Facades
             {
                 if (oldPassword == token.User.Password)
                 {
-                    Customer customer = new Customer(token.User.Id, token.User.FirstName, token.User.LastName, token.User.UserName, newPassword, token.User.Address, token.User.PhoneNo, token.User.CreditCardNumber);
+                    Customer customer = new Customer(token.User.Id, token.User.FirstName, token.User.LastName, token.User.Username, newPassword, token.User.Address, token.User.PhoneNo, token.User.CreditCardNumber);
                     _customerDAO.Update(customer);
                     LoginToken.User = customer;
                 }
@@ -98,9 +98,9 @@ namespace FlightProject.Facades
             {
                 if (token.User.Password == customer.Password)
                 {
-                    if (token.User.UserName == customer.UserName)
+                    if (token.User.Username == customer.Username)
                     {
-                        customer = new Customer(token.User.Id, customer.FirstName, customer.LastName, token.User.UserName, token.User.Password, customer.Address, customer.PhoneNo, customer.CreditCardNumber);
+                        customer = new Customer(token.User.Id, customer.FirstName, customer.LastName, token.User.Username, token.User.Password, customer.Address, customer.PhoneNo, customer.CreditCardNumber);
                         _customerDAO.Update(customer);
                         LoginToken.User = customer;
 

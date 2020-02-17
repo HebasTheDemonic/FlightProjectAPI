@@ -18,18 +18,18 @@ namespace FlightProject.POCOs
 
         }
 
-        public AirlineCompany(string userName, string password)
+        public AirlineCompany(string username, string password) : base(username,password)
         {
 
         }
 
-        public AirlineCompany(string airlineName, string userName, string password, int originCountry) : this(userName, password)
+        public AirlineCompany(string airlineName, string username, string password, int originCountry) : this(username, password)
         {
             AirlineName = airlineName ?? throw new ArgumentNullException(nameof(airlineName));
             OriginCountry = originCountry;
         }
 
-        internal AirlineCompany(int id, string airlineName, string userName, string password, int originCountry) : this(airlineName, userName, password, originCountry)
+        internal AirlineCompany(int id, string airlineName, string username, string password, int originCountry) : this(airlineName, username, password, originCountry)
         {
             Id = id;
         }
@@ -42,12 +42,12 @@ namespace FlightProject.POCOs
         public override bool Equals(object obj)
         {
             var company = obj as AirlineCompany;
-            if (UserName == null || company.UserName == null)
+            if (Username == null || company.Username == null)
             {
                 throw new CorruptedDataException();
             }
             return company != null &&
-                   UserName == company.UserName;
+                   Username == company.Username;
         }
 
         public override int GetHashCode()

@@ -17,6 +17,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Microsoft.SqlServer.Server;
 
+
 namespace FlightProject_WebAPI
 {
     public class Startup
@@ -46,6 +47,8 @@ namespace FlightProject_WebAPI
                 };
             });
             services.AddMvc();
+
+            
 
             services.AddSwaggerGen(c =>
             {

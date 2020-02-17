@@ -21,12 +21,12 @@ namespace FlightProject.POCOs
 
         }
 
-        public Customer(string userName, string password)
+        public Customer(string username, string password): base(username,password)
         {
 
         }
 
-        public Customer(string firstName, string lastName, string userName, string password, string address, int phoneNo, int creditCardNumber) : this(userName, password)
+        public Customer(string firstName, string lastName, string username, string password, string address, int phoneNo, int creditCardNumber) : this(username, password)
         {
             FirstName = firstName ?? throw new ArgumentNullException(nameof(firstName));
             LastName = lastName ?? throw new ArgumentNullException(nameof(lastName));
@@ -35,7 +35,7 @@ namespace FlightProject.POCOs
             CreditCardNumber = creditCardNumber;
         }
 
-        internal Customer(int iD, string firstName, string lastName, string userName, string password, string address, int phoneNo, int creditCardNumber) : this(firstName, lastName, userName, password, address, phoneNo, creditCardNumber)
+        internal Customer(int iD, string firstName, string lastName, string username, string password, string address, int phoneNo, int creditCardNumber) : this(firstName, lastName, username, password, address, phoneNo, creditCardNumber)
         {
             Id = iD;
         }
@@ -47,12 +47,12 @@ namespace FlightProject.POCOs
         public override bool Equals(object obj)
         {
             var customer = obj as Customer;
-            if (UserName == null || customer.UserName == null)
+            if (Username == null || customer.Username == null)
             {
                 throw new CorruptedDataException();
             }
             return customer != null &&
-                   UserName == customer.UserName;
+                   Username == customer.Username;
         }
 
         public override int GetHashCode()

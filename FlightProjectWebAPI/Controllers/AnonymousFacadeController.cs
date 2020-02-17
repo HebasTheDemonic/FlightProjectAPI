@@ -218,7 +218,7 @@ namespace FlightProject_WebAPI.Controllers
             IActionResult result = SafeExecute(() =>
             {
                 AnonymousUserFacade.CreateNewCustomer(customer);
-                return Ok($"{customer.UserName} created succesfully.");
+                return Ok($"{customer.Username} created succesfully.");
             });
             return result;
         }

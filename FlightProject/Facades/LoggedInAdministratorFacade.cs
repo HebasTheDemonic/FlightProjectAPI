@@ -30,9 +30,9 @@ namespace FlightProject.Facades
         {
             if (token.CheckToken())
             {
-                if (token.User.UserName.ToUpper() == "ADMIN")
+                if (token.User.Username.ToUpper() == "ADMIN")
                 {
-                    if (_generalDAO.DoesUsernameExist(administrator.UserName) == 0)
+                    if (_generalDAO.DoesUsernameExist(administrator.Username) == 0)
                     {
                         if (_administratorDAO.DoesAdministratorExist(administrator) == 0)
                         {
@@ -44,7 +44,7 @@ namespace FlightProject.Facades
                 }
                 else
                 {
-                    throw new UnauthorizedActionException($"Administrator {token.User.UserName} is not allowed to add new administrators");
+                    throw new UnauthorizedActionException($"Administrator {token.User.Username} is not allowed to add new administrators");
                 }
             }
         }
@@ -53,7 +53,7 @@ namespace FlightProject.Facades
         {
             if (token.CheckToken())
             {
-                if (_generalDAO.DoesUsernameExist(airline.UserName) == 0)
+                if (_generalDAO.DoesUsernameExist(airline.Username) == 0)
                 {
                     if (_airlineDAO.DoesAirlineCompanyExist(airline) == 0)
                     {
@@ -69,7 +69,7 @@ namespace FlightProject.Facades
         {
             if (token.CheckToken())
             {
-                if (_generalDAO.DoesUsernameExist(customer.UserName) == 0)
+                if (_generalDAO.DoesUsernameExist(customer.Username) == 0)
                 {
                     if (_customerDAO.DoesCustomerExist(customer) == 0)
                     {
@@ -83,17 +83,17 @@ namespace FlightProject.Facades
 
         public void RemoveAdministrator(LoginToken<Administrator> token, Administrator administrator)
         {
-            if (administrator.UserName.ToUpper() == "ADMIN")
+            if (administrator.Username.ToUpper() == "ADMIN")
             {
                 throw new UnauthorizedActionException("Cannot remove master administrator account.");
             }
             if (token.CheckToken())
             {
-                if (administrator.UserName == token.User.UserName)
+                if (administrator.Username == token.User.Username)
                 {
                     throw new UnauthorizedActionException("Cannot remove own account.");
                 }
-                administrator = _administratorDAO.GetAdministratorByUsername(administrator.UserName);
+                administrator = _administratorDAO.GetAdministratorByUsername(administrator.Username);
                 _administratorDAO.Remove(administrator);
             }
 
@@ -105,7 +105,7 @@ namespace FlightProject.Facades
             {
                 if (_airlineDAO.DoesAirlineCompanyExist(airline) == 1)
                 {
-                    airline = _airlineDAO.GetAirlineCompanybyUsername(airline.UserName);
+                    airline = _airlineDAO.GetAirlineCompanybyUsername(airline.Username);
                     List<Flight> flights = (List<Flight>)_flightDAO.GetFlightsByAirlineCompany(airline);
                     foreach (Flight flight in flights)
                     {
@@ -131,7 +131,7 @@ namespace FlightProject.Facades
             {
                 if (_customerDAO.DoesCustomerExist(customer) == 1)
                 {
-                    customer = _customerDAO.GetCustomerByUsername(customer.UserName);
+                    customer = _customerDAO.GetCustomerByUsername(customer.Username);
                     List<Ticket> tickets = (List<Ticket>)_ticketDAO.GetAllTicketsByCustomer(customer);
                     foreach (Ticket ticket in tickets)
                     {
@@ -150,16 +150,16 @@ namespace FlightProject.Facades
         {
             if (token.CheckToken())
             {
-                if (token.User.UserName.ToUpper() == "ADMIN")
+                if (token.User.Username.ToUpper() == "ADMIN")
                 {
                     try
                     {
-                        Administrator tempAdministrator = _administratorDAO.GetAdministratorByUsername(administrator.UserName);
-                        if (tempAdministrator.UserName == null)
+                        Administrator tempAdministrator = _administratorDAO.GetAdministratorByUsername(administrator.Username);
+                        if (tempAdministrator.Username == null)
                         {
                             throw new Exception();
                         }
-                        administrator = new Administrator(tempAdministrator.Id, administrator.UserName, administrator.Password);
+                        administrator = new Administrator(tempAdministrator.Id, administrator.Username, administrator.Password);
                     }
                     catch (Exception)
                     {
@@ -180,12 +180,12 @@ namespace FlightProject.Facades
             {
                 try
                 {
-                    AirlineCompany airlineCompany = _airlineDAO.GetAirlineCompanybyUsername(airline.UserName);
-                    if (airlineCompany.UserName == null)
+                    AirlineCompany airlineCompany = _airlineDAO.GetAirlineCompanybyUsername(airline.Username);
+                    if (airlineCompany.Username == null)
                     {
                         throw new Exception();
                     }
-                    airline = new AirlineCompany(airlineCompany.Id, airline.AirlineName, airline.UserName, airline.Password, airline.OriginCountry);
+                    airline = new AirlineCompany(airlineCompany.Id, airline.AirlineName, airline.Username, airline.Password, airline.OriginCountry);
                 }
                 catch (Exception)
                 {
@@ -201,12 +201,12 @@ namespace FlightProject.Facades
             {
                 try
                 {
-                    Customer tempCustomer = _customerDAO.GetCustomerByUsername(customer.UserName);
-                    if (tempCustomer.UserName == null)
+                    Customer tempCustomer = _customerDAO.GetCustomerByUsername(customer.Username);
+                    if (tempCustomer.Username == null)
                     {
                         throw new Exception();
                     }
-                    customer = new Customer(tempCustomer.Id, customer.FirstName, customer.LastName, customer.UserName, customer.Password, customer.Address, customer.PhoneNo, customer.CreditCardNumber);
+                    customer = new Customer(tempCustomer.Id, customer.FirstName, customer.LastName, customer.Username, customer.Password, customer.Address, customer.PhoneNo, customer.CreditCardNumber);
                 }
                 catch (Exception)
                 {

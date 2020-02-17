@@ -53,7 +53,7 @@ namespace FlightProject.Facades
             {
                 if (OldPassword == token.User.Password)
                 {
-                    AirlineCompany airlineCompany = new AirlineCompany(token.User.Id, token.User.AirlineName, token.User.UserName, NewPassword, token.User.OriginCountry);
+                    AirlineCompany airlineCompany = new AirlineCompany(token.User.Id, token.User.AirlineName, token.User.Username, NewPassword, token.User.OriginCountry);
                     _airlineDAO.Update(airlineCompany);
                     token.User = airlineCompany;
                 }
@@ -122,11 +122,11 @@ namespace FlightProject.Facades
             {
                 if (token.User.Password == airline.Password)
                 {
-                    if (token.User.UserName == airline.UserName)
+                    if (token.User.Username == airline.Username)
                     {
                         try
                         {
-                            airline = new AirlineCompany(token.User.Id, airline.AirlineName, airline.UserName, token.User.Password, airline.OriginCountry);
+                            airline = new AirlineCompany(token.User.Id, airline.AirlineName, airline.Username, token.User.Password, airline.OriginCountry);
                             _airlineDAO.Update(airline);
                             token.User = airline;
                         }

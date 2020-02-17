@@ -82,6 +82,7 @@ namespace FlightProject.DAOs
                 {
                     Country country = new Country((int)sqlDataReader["ID"],
                                                   (string)sqlDataReader["NAME"]);
+                    countries.Add(country);
                 }
                 connection.Close();
             }

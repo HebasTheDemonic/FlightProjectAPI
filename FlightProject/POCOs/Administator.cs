@@ -17,7 +17,7 @@ namespace FlightProject.POCOs
 
         // This constructor is for registering new administrators and for making an Administrator object for login service.
 
-        public Administrator(string username, string password)
+        public Administrator(string username, string password) : base(username,password)
         {
 
         }
@@ -36,12 +36,12 @@ namespace FlightProject.POCOs
         public override bool Equals(object obj)
         {
             var administrator = obj as Administrator;
-            if (UserName == null || administrator.UserName == null)
+            if (Username == null || administrator.Username == null)
             {
                 throw new CorruptedDataException();
             }
             return administrator != null &&
-                   UserName == administrator.UserName;
+                   Username == administrator.Username;
         }
 
         public override int GetHashCode()

@@ -25,7 +25,7 @@ namespace FlightProject.DAOs
 
                 SqlParameter usernameParameter = new SqlParameter();
                 usernameParameter.SqlDbType = SqlDbType.Char;
-                usernameParameter.SqlValue = t.UserName;
+                usernameParameter.SqlValue = t.Username;
                 usernameParameter.ParameterName = "@USER";
 
                 SqlParameter passwordParameter = new SqlParameter();
@@ -66,7 +66,7 @@ namespace FlightProject.DAOs
 
                 SqlParameter usernameParameter = new SqlParameter();
                 usernameParameter.SqlDbType = SqlDbType.Char;
-                usernameParameter.SqlValue = airlineCompany.UserName;
+                usernameParameter.SqlValue = airlineCompany.Username;
                 usernameParameter.ParameterName = "@USER";
 
                 SqlParameter returnValueParameter = new SqlParameter();
@@ -245,7 +245,7 @@ namespace FlightProject.DAOs
 
                 SqlParameter usernameParameter = new SqlParameter();
                 usernameParameter.SqlDbType = SqlDbType.Char;
-                usernameParameter.SqlValue = t.UserName;
+                usernameParameter.SqlValue = t.Username;
                 usernameParameter.ParameterName = "@USER";
 
                 SqlParameter passwordParameter = new SqlParameter();

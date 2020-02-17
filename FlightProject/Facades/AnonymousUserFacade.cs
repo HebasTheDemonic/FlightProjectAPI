@@ -17,15 +17,16 @@ namespace FlightProject.Facades
 
         internal AnonymousUserFacade()
         {
-            LoginToken = null;
             _airlineDAO = new AirlineDAO();
             _flightDAO = new FlightDAO();
             _countryDAO = new CountryDAO();
         }
 
+
+
         public void CreateNewCustomer(Customer customer)
         {
-            if (_generalDAO.DoesUsernameExist(customer.UserName) == 0)
+            if (_generalDAO.DoesUsernameExist(customer.Username) == 0)
             {
                 if (_customerDAO.DoesCustomerExist(customer) == 0)
                 {

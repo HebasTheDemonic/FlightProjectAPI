@@ -23,12 +23,13 @@ namespace FlightProject_WebAPI.Controllers
         private const string securitykey = "7133743677397A244326462948404D635166546A576E5A7234753778214125442A472D4B614E645267556B58703273357638792F423F4528482B4D6251655368";
         private SymmetricSecurityKey symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(securitykey));
 
-        public IActionResult Authenticator([FromBody]User user)
+        public IActionResult Authenticator([FromQuery]string username, [FromQuery]string password)
         {
+            User user = new User(username, password);
             IActionResult result = SafeExecute(() =>
             {
                 FlyingCenterSystem flyingCenterSystem = FlyingCenterSystem.GetInstance();
-                int facadeIndex = flyingCenterSystem.UserLogin(user.UserName, user.Password);
+                int facadeIndex = flyingCenterSystem.UserLogin(user.Username, user.Password);
                 if (FlyingCenterSystem.FacadeList[facadeIndex].GetType() != typeof(AnonymousUserFacade))
                 {
                     string token = CreateToken(facadeIndex);
@@ -44,13 +45,40 @@ namespace FlightProject_WebAPI.Controllers
         private string CreateToken(int facadeIndex)
         {
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+            ClaimsIdentity claims = new ClaimsIdentity();
 
-            ClaimsIdentity claims = new ClaimsIdentity(new[]
+            if(FlyingCenterSystem.FacadeList[facadeIndex] is LoggedInAdministratorFacade)
             {
-                new Claim(ClaimTypes.Name, FlyingCenterSystem.FacadeList[facadeIndex].LoginToken.User.UserName),
-                new Claim(ClaimTypes.Role, FlyingCenterSystem.FacadeList[facadeIndex].LoginToken.User.GetType().ToString()),
-                new Claim("FacadeListLocation", facadeIndex.ToString())
-            });
+                LoginToken<Administrator> token = GetToken(FlyingCenterSystem.FacadeList[facadeIndex] as LoggedInAdministratorFacade);
+                claims = new ClaimsIdentity(new[]
+                {
+                    new Claim(ClaimTypes.Name, token.User.Username),
+                    new Claim(ClaimTypes.Role, token.User.GetType().ToString()),
+                    new Claim("FacadeListLocation", facadeIndex.ToString())
+                });
+            }
+
+            if (FlyingCenterSystem.FacadeList[facadeIndex] is LoggedInAirlineFacade)
+            {
+                LoginToken<AirlineCompany> token = GetToken(FlyingCenterSystem.FacadeList[facadeIndex] as LoggedInAirlineFacade);
+                claims = new ClaimsIdentity(new[]
+                {
+                    new Claim(ClaimTypes.Name, token.User.Username),
+                    new Claim(ClaimTypes.Role, token.User.GetType().ToString()),
+                    new Claim("FacadeListLocation", facadeIndex.ToString())
+                });
+            }
+
+            if (FlyingCenterSystem.FacadeList[facadeIndex] is LoggedInCustomerFacade)
+            {
+                LoginToken<Customer> token = GetToken(FlyingCenterSystem.FacadeList[facadeIndex] as LoggedInCustomerFacade);
+                claims = new ClaimsIdentity(new[]
+                {
+                    new Claim(ClaimTypes.Name, token.User.Username),
+                    new Claim(ClaimTypes.Role, token.User.GetType().ToString()),
+                    new Claim("FacadeListLocation", facadeIndex.ToString())
+                });
+            }
 
             DateTime issuedAt = DateTime.UtcNow;
             DateTime expiresAt = DateTime.UtcNow.AddDays(1);
@@ -67,6 +95,24 @@ namespace FlightProject_WebAPI.Controllers
                 );
             string tokenString = tokenHandler.WriteToken(jwtSecurityToken);
             return tokenString;
+        }
+
+        private LoginToken<Administrator> GetToken(LoggedInAdministratorFacade administratorFacade)
+        {
+            LoginToken<Administrator> loginToken = administratorFacade.LoginToken;
+            return loginToken;
+        }
+
+        private LoginToken<Customer> GetToken(LoggedInCustomerFacade customerFacade)
+        {
+            LoginToken<Customer> loginToken = customerFacade.LoginToken;
+            return loginToken;
+        }
+
+        private LoginToken<AirlineCompany> GetToken(LoggedInAirlineFacade airlineFacade)
+        {
+            LoginToken<AirlineCompany> loginToken = airlineFacade.LoginToken;
+            return loginToken;
         }
 
         #region SafeExecute Method
@@ -103,10 +149,10 @@ namespace FlightProject_WebAPI.Controllers
             {
                 return new StatusCodeResult(StatusCodes.Status503ServiceUnavailable);
             }
-            catch (Exception)
-            {
-                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
-            }
+          //  catch (Exception)
+          //  {
+          //      return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+          //  }
         }
         #endregion
     }
